@@ -12,12 +12,14 @@ export default function Persons() {
     fetchData();
   }, []);
 
-  console.log(persons);
+  let handleChange = (e) =>{
+    
+  }
   
   return (
     <>
     <div className="row">
-      <div className="col col-4">
+      <div className="col col-2">
         <h5>Person Create/Update Form</h5>
         <form action="">
           <input className='form-control' type="text" placeholder='Enter Name' /><br />
@@ -38,7 +40,7 @@ export default function Persons() {
           <Button className='form-control' variant="outline-primary" >Submit</Button>
         </form>
       </div>
-      <div className='col col-8'>
+      <div className='col col-10'>
         <h1>Persons Information</h1>
         <Table striped bordered hover>
           <thead>
