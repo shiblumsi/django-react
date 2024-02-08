@@ -2,6 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Table, Button} from 'react-bootstrap';
 export default function Persons() {
   const [persons, setPersons] = useState([]);
+  const [is_true, setIs_true] = useState(false)
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone_number, setPhone_number] = useState('')
+  const [date_of_birth, setDate_of_birth] = useState('')
+  const [gender, setGender] = useState('')
+  const [is_marride, setIs_marride] = useState('')
+  const [address, setAddress] = useState('')
+  const [p_id, setP_id] = useState()
 
   useEffect(() => {
     async function fetchData() {
@@ -10,24 +19,150 @@ export default function Persons() {
       setPersons(jsonData);
     }
     fetchData();
-  }, []);
+  }, [persons]);
 
-  let handleChange = (e) =>{
+  let handleEdit = (person) =>{
+    console.log('editButton Cliked',person);
+    setP_id(person.id)
+    setIs_true(true)
+    setName(person.name)
+    setEmail(person.email)
+    setPhone_number(person.phone_number)
+    setDate_of_birth(person.date_of_birth)
+    setGender(person.gender)
+    setIs_marride(person.is_marride)
+    setAddress(person.address)
     
   }
   
+  let handleDelete = async (id) => {
+    try {
+        const response = await fetch(`http://localhost:8000/pd/${id}/`, {
+            method: 'DELETE',
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to delete data');
+        }
+
+        // If the deletion is successful, you may want to update the UI or fetch updated data
+        // const updatedPersons = persons.filter(person => person.id !== id);
+        // setPersons(updatedPersons);
+
+        console.log('Data deleted successfully');
+    } catch (error) {
+        console.error('Error deleting data:', error.message);
+    }
+  };
+
+  let performUpdate = async (e) => {
+    e.preventDefault();
+
+    try {
+        const response = await fetch(`http://localhost:8000/pu/${p_id}/`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name,
+                email,
+                phone_number,
+                date_of_birth,
+                gender,
+                is_marride,
+                address
+            }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to submit data');
+        }
+
+        // If the submission is successful, you may want to clear the form fields or fetch updated data
+        setName('');
+        setEmail('');
+        setPhone_number('');
+        setDate_of_birth('');
+        setGender('');
+        setIs_marride('');
+        setAddress('');
+        setIs_true(false)
+
+        // Fetch updated data
+        // const fetchData = async () => {
+        //     const response = await fetch('http://localhost:8000/pl');
+        //     const jsonData = await response.json();
+        //     setPersons(jsonData);
+        // };
+        // fetchData();
+
+        console.log('Data submitted successfully');
+    } catch (error) {
+        console.error('Error submitting data:', error.message);
+    }
+  };
+
+  let handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+        const response = await fetch('http://localhost:8000/pc/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name,
+                email,
+                phone_number,
+                date_of_birth,
+                gender,
+                is_marride,
+                address
+            }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to submit data');
+        }
+
+        // If the submission is successful, you may want to clear the form fields or fetch updated data
+        setName('');
+        setEmail('');
+        setPhone_number('');
+        setDate_of_birth('');
+        setGender('');
+        setIs_marride('');
+        setAddress('');
+
+        // Fetch updated data
+        // const fetchData = async () => {
+        //     const response = await fetch('http://localhost:8000/pl');
+        //     const jsonData = await response.json();
+        //     setPersons(jsonData);
+        // };
+        // fetchData();
+
+        console.log('Data submitted successfully');
+    } catch (error) {
+        console.error('Error submitting data:', error.message);
+    }
+  };
+
+  console.log('hi');
   return (
     <>
     <div className="row">
       <div className="col col-2">
         <h5>Person Create/Update Form</h5>
-        <form action="">
-          <input className='form-control' type="text" placeholder='Enter Name' /><br />
-          <input className='form-control' type="text" placeholder='Email' /><br/>
-          <input className='form-control' type="text" placeholder='Phone_number' /><br/>
-          <input className='form-control' type="text" placeholder='Date_of_birth' /><br/>
+        <form >
+          <input className='form-control' type="text" placeholder='Enter Name' value={name} onChange={e=> setName(e.target.value)}/><br />
+          <input className='form-control' type="text" placeholder='Email' value={email} onChange={e=> setEmail(e.target.value)}/><br />
+          <input className='form-control' type="text" placeholder='Phone_number' value={phone_number} onChange={e=> setPhone_number(e.target.value)}/><br />
+          <input className='form-control' type="date" placeholder='Date_of_birth' value={date_of_birth} onChange={e=> setDate_of_birth(e.target.value)}/><br />
      
-          <select>
+          <select value={gender} onChange={e=> setGender(e.target.value)}>
             <option value="">Select Gender</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
@@ -35,9 +170,9 @@ export default function Persons() {
           </select>
           <br/>
           <label htmlFor="">Is_marride:</label>
-          <input  type="checkbox" /><br/>
-          <input className='form-control' type="text" placeholder='Address' /><br/>
-          <Button className='form-control' variant="outline-primary" >Submit</Button>
+          <input  type="checkbox" value={is_marride} onChange={e=> setIs_marride(e.target.value)}/><br />
+          <input className='form-control' type="text" placeholder='Address' value={address} onChange={e=> setAddress(e.target.value)}/><br />
+          { is_true ? <Button className='form-control' variant="outline-info" onClick={performUpdate}>Update</Button> : <Button className='form-control' variant="outline-primary" onClick={handleSubmit}>Submit</Button>}
         </form>
       </div>
       <div className='col col-10'>
@@ -68,7 +203,7 @@ export default function Persons() {
                 <td>{person.gender}</td>
                 <td>{person.is_married}</td>
                 <td>{person.address}</td>
-                <td><Button variant="outline-info" size='sm'>Edit</Button>{' '}<Button variant="outline-danger" size='sm'>Delete</Button>{' '}</td>
+                <td><Button variant="outline-info" size='sm' onClick={()=> handleEdit(person)}>Edit</Button>{' '}<Button variant="outline-danger" size='sm' onClick={()=> handleDelete(person.id)}>Delete</Button>{' '}</td>
               </tr>
             ))}
           </tbody>
