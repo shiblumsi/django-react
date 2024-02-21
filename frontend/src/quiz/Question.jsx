@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import axios from 'axios'
 export default function Question() {
   const [opts, setOpt] = useState([""])
   const [qus, setQus] = useState('')
@@ -23,10 +23,23 @@ export default function Question() {
     
   };
 
-  const handleSubmit = ()=>{
-    console.log(opts);
-    console.log(qus);
-    console.log(ans);
+  const handleSubmit = async ()=>{
+   
+    const sendData = {
+      question:qus,
+      answer:{answer:ans},
+      choices:opts.map(option=> ({option}))
+    }
+    try {
+      const res = await axios.post("http://127.0.0.1:8000/qc/",sendData)
+      console.log(res);
+      setAns('')
+      setOpt([''])
+      setQus('')
+    } catch(error){
+      console.error('Error',error.response.data)
+    }
+    
   }
   
 
@@ -68,7 +81,7 @@ export default function Question() {
         </>
       ))}
 
-      <button onClick={handleAdd}>Add Option</button>
+      {opts.length < 4 ? <button onClick={handleAdd}>Add Option</button> : null}
       <button onClick={handleSubmit}>submit</button>
     </div>
   );

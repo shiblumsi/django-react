@@ -14,7 +14,7 @@ class AnswerQuestionSerializer(serializers.ModelSerializer):
         fields = ['answer']
 
 
-class QuestionSerializer(serializers.ModelSerializer):
+class QuestionSerializer(serializers.ModelSerializer): 
     choices = ChoiceOptionSerializer(many=True, source='options')
     answer = AnswerQuestionSerializer(source='answer_question')
 
@@ -33,3 +33,8 @@ class QuestionSerializer(serializers.ModelSerializer):
             ChoiceOption.objects.create(question=question, **choice_data)
 
         return question
+    
+class QuestionSerializerList(serializers.ModelSerializer):
+    class Meta:
+        model = Question
+        fields = '__all__'
