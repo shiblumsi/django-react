@@ -31,3 +31,13 @@ class Person(BaseModel):
     def __str__(self):
         return self.name
 
+class Car(BaseModel):
+    title = models.CharField(max_length=255)
+    model_name = models.CharField(max_length=255)
+    brand = models.CharField(max_length=255)
+    person = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='cars')
+
+    def __str__(self):
+        return self.model_name
+
+
