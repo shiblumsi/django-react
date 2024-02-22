@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Question, ChoiceOption, AnswerQuestion
+from .models import Question, ChoiceOption, AnswerQuestion, ResultQuiz
 
 
 class ChoiceOptionSerializer(serializers.ModelSerializer):
@@ -14,7 +14,7 @@ class AnswerQuestionSerializer(serializers.ModelSerializer):
         fields = ['answer']
 
 
-class QuestionSerializer(serializers.ModelSerializer): 
+class QuestionSerializer(serializers.ModelSerializer):
     choices = ChoiceOptionSerializer(many=True, source='options')
     answer = AnswerQuestionSerializer(source='answer_question')
 
@@ -33,8 +33,16 @@ class QuestionSerializer(serializers.ModelSerializer):
             ChoiceOption.objects.create(question=question, **choice_data)
 
         return question
-    
+
+
 class QuestionSerializerList(serializers.ModelSerializer):
     class Meta:
         model = Question
         fields = '__all__'
+
+
+class ResultSerializer(serializers.Serializer):
+    question_options = serializers.DictField(
+        child=serializers.IntegerField(),
+        allow_empty=True
+    )
