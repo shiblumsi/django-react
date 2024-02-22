@@ -64,7 +64,9 @@ export default function Quiz() {
             type="radio"
             name={`question_${currentQuestion.id}`}
             value={option.id}
-            onChange={() => handleOptionChange(currentQuestion.id, o_id)}
+            onChange={() =>
+              handleOptionChange(currentQuestion.id, option.id)
+            }
           />
           <label htmlFor={option.id}>{option.option}</label>
         </div>
