@@ -5,12 +5,13 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Question from './quiz/Question';
 import QuestionCreateForm from './quiz/QuestionCreateForm';
+import Quiz from './quiz/Quiz';
 
 function App() {
 
 return (
   <>
-    <Question />
+    <Quiz />
   </>
 );
 }

@@ -162,15 +162,15 @@ export default function Persons() {
           <input className='form-control' type="text" placeholder='Phone_number' value={phone_number} onChange={e=> setPhone_number(e.target.value)}/><br />
           <input className='form-control' type="date" placeholder='Date_of_birth' value={date_of_birth} onChange={e=> setDate_of_birth(e.target.value)}/><br />
      
-          <select value={gender} onChange={e=> setGender(e.target.value)}>
+          <select className='form-control' value={gender} onChange={e=> setGender(e.target.value)}>
             <option value="">Select Gender</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
             <option value="Others">Others</option>
           </select>
           <br/>
-          <label htmlFor="">Is_marride:</label>
-          <input  type="checkbox" value={is_marride} onChange={e=> setIs_marride(e.target.value)}/><br />
+          <label className='form-control'  htmlFor="">Is_marride: <input  type="checkbox" value={is_marride} onChange={e=> setIs_marride(e.target.value)}/></label>
+          <br />
           <input className='form-control' type="text" placeholder='Address' value={address} onChange={e=> setAddress(e.target.value)}/><br />
           { is_true ? <Button className='form-control' variant="outline-info" onClick={performUpdate}>Update</Button> : <Button className='form-control' variant="outline-primary" onClick={handleSubmit}>Submit</Button>}
         </form>
@@ -182,12 +182,13 @@ export default function Persons() {
             <tr>
             <th>Photo</th>
               <th>Name</th>
-              <th>Email</th>
+              {/* <th>Email</th> */}
               <th>Phone_number</th>
               <th>Date_of_birth</th>
               <th>Gender</th>
               <th>Is_married</th>
               <th>Address</th>
+              <th>Cars</th>
               <th>Action</th>
               
             </tr>
@@ -197,12 +198,13 @@ export default function Persons() {
               <tr key={person.id}>
                 <td><img src={person.photo} alt="" style={{ width: '30px', height: '30px', borderRadius:'100%' }} /></td>
                 <td>{person.name}</td>
-                <td>{person.email}</td>
+                {/* <td>{person.email}</td> */}
                 <td>{person.phone_number}</td>
                 <td>{person.date_of_birth}</td>
                 <td>{person.gender}</td>
                 <td>{person.is_married}</td>
                 <td>{person.address}</td>
+                <td><Button variant="outline-info" size='sm'>cars</Button></td>
                 <td><Button variant="outline-info" size='sm' onClick={()=> handleEdit(person)}>Edit</Button>{' '}<Button variant="outline-danger" size='sm' onClick={()=> handleDelete(person.id)}>Delete</Button>{' '}</td>
               </tr>
             ))}
