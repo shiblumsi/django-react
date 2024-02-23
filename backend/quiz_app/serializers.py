@@ -46,3 +46,7 @@ class ResultSerializer(serializers.Serializer):
         child=serializers.IntegerField(),
         allow_empty=True
     )
+class ResultQuizSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ResultQuiz
+        fields = '__all__'
