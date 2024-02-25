@@ -46,6 +46,7 @@ class ResultSerializer(serializers.Serializer):
         child=serializers.IntegerField(),
         allow_empty=True
     )
+<<<<<<< HEAD
 
 
 class ResultQuizSerializer(serializers.ModelSerializer):
@@ -54,3 +55,9 @@ class ResultQuizSerializer(serializers.ModelSerializer):
     class Meta:
         model = ResultQuiz
         fields = ['selected_option', 'is_currect']
+=======
+class ResultQuizSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ResultQuiz
+        fields = '__all__'
+>>>>>>> 724ca918379d3db470242400a6fd0c142d1f3b05
