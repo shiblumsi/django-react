@@ -7,22 +7,20 @@ import Question from './quiz/Question';
 import QuestionCreateForm from './quiz/QuestionCreateForm';
 import Quiz from './quiz/Quiz';
 import Answer from './quiz/Answer';
+import StudentSignupForm from './quiz/StudentSignupForm'
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 
 function App() {
   return (
     <Router>
       <div>
-        {/* <nav>
-          <ul>
-            <li>
-              <Link to="/answer">Submit Answer</Link>
-            </li>
-          </ul>
-        </nav> */}
+        <nav>
+          <Link to="/studeentSignup">studeentSignup</Link>
+        </nav>
 
         <Routes>
           <Route path="/" element={<Quiz />} />
+          <Route path="/studeentSignup" element={<StudentSignupForm />} />
           <Route path="/answer" element={<Answer />} />
         </Routes>
       </div>

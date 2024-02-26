@@ -1,0 +1,17 @@
+.option-box {
+    background-color: #c5d2df;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius:15px;
+}
+
+.option-box.right {
+    background-color: #10f710;
+    color: #0e0c0c;
+}
+
+
+.option-box.wrong {
+    background-color: #fa0b0b;
+    color: #0e0c0c;
+}

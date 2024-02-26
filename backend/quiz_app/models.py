@@ -27,6 +27,6 @@ class AnswerQuestion(models.Model):
 
 class ResultQuiz(models.Model):
     user = models.CharField(max_length=1)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE,related_name='result_quizzes')
     selected_option = models.ForeignKey(ChoiceOption, on_delete=models.CASCADE)
     is_currect = models.BooleanField(default=False)

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.generics import CreateAPIView, ListAPIView
 
 from .models import Question, ResultQuiz, AnswerQuestion, ChoiceOption
-from .serializers import QuestionSerializer, ResultSerializer, ResultQuizSerializer
+from .serializers import QuestionSerializer, ResultQuizSerializer2, ResultSerializer, ResultQuizSerializer
 
 
 # Create your views here.
@@ -35,5 +35,5 @@ class ResultQuizView(CreateAPIView):
 
 
 class ResultQuizViewList(ListAPIView):
-    queryset = ResultQuiz.objects.all()
-    serializer_class = ResultQuizSerializer
+    queryset = Question.objects.all()
+    serializer_class = ResultQuizSerializer2
