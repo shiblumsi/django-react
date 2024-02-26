@@ -1,3 +1,11 @@
+<<<<<<< HEAD
+import React from 'react'
+
+export default function Answer() {
+  return (
+    <div>
+      
+=======
 import React, { useEffect ,useState} from 'react'
 import axios from 'axios'
 export default function Answer() {
@@ -18,6 +26,7 @@ export default function Answer() {
   return (
     <div>
         
+>>>>>>> 724ca918379d3db470242400a6fd0c142d1f3b05
     </div>
   )
 }
