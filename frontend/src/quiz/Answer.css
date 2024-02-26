@@ -1,17 +1,17 @@
 .option-box {
-    background-color: #c5d2df;
+    background-color: #e8e8e9;
     padding: 10px;
     margin-bottom: 10px;
     border-radius:15px;
 }
 
 .option-box.right {
-    background-color: #10f710;
+    background-color: #81fa81;
     color: #0e0c0c;
 }
 
 
 .option-box.wrong {
-    background-color: #fa0b0b;
+    background-color: #f79494;
     color: #0e0c0c;
 }
