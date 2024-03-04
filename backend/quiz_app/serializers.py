@@ -64,3 +64,5 @@ class ResultQuizSerializer2(serializers.ModelSerializer):
     class Meta:
         model = Question
         fields = ['id', 'question', 'choices', 'answer','rqs']
+
+        fields = '__all__'
