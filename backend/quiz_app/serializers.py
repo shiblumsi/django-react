@@ -5,7 +5,7 @@ from .models import Question, ChoiceOption, AnswerQuestion, ResultQuiz
 class ChoiceOptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChoiceOption
-        fields = ['id','option']
+        fields = ['id', 'option']
 
 
 class AnswerQuestionSerializer(serializers.ModelSerializer):
@@ -46,3 +46,21 @@ class ResultSerializer(serializers.Serializer):
         child=serializers.IntegerField(),
         allow_empty=True
     )
+
+
+class ResultQuizSerializer(serializers.ModelSerializer):
+    selected_option = serializers.StringRelatedField()
+
+    class Meta:
+        model = ResultQuiz
+        fields = ['selected_option', 'is_currect']
+
+
+class ResultQuizSerializer2(serializers.ModelSerializer):
+    choices = ChoiceOptionSerializer(many=True, source='options')
+    answer = AnswerQuestionSerializer(source='answer_question')
+    rqs = ResultQuizSerializer(many=True,source='result_quizzes')
+
+    class Meta:
+        model = Question
+        fields = ['id', 'question', 'choices', 'answer','rqs']
